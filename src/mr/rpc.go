@@ -6,24 +6,29 @@ package mr
 // remember to capitalize all names.
 //
 
-import "os"
+import (
+	"os"
+	"time"
+)
 import "strconv"
 
-//
-// example to show how to declare the arguments
-// and reply for an RPC.
-//
-
-type ExampleArgs struct {
-	X int
-}
-
-type ExampleReply struct {
-	Y int
-}
+const (
+	DefaultTimeout         = time.Second * 10
+	MapJobType     JobType = "Map"
+	ReduceJobType  JobType = "Reduce"
+	NoJobType      JobType = "NoJob"
+)
 
 // Add your RPC definitions here.
+type JobType string
 
+type Job struct {
+	Name     string
+	Start    time.Time
+	Type     JobType
+	Data     []byte
+	Assigned bool
+}
 
 // Cook up a unique-ish UNIX-domain socket name
 // in /var/tmp, for the coordinator.
