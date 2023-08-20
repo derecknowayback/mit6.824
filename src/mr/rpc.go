@@ -7,6 +7,7 @@ package mr
 //
 
 import (
+	"fmt"
 	"os"
 	"time"
 )
@@ -21,13 +22,19 @@ const (
 
 // Add your RPC definitions here.
 type JobType string
+type Nothing int
 
 type Job struct {
 	Name     string
+	Index    string
 	Start    time.Time
 	Type     JobType
 	Data     []byte
 	Assigned bool
+}
+
+func (j *Job) ToStr() string {
+	return fmt.Sprintf("{ Name:[%s]  Index:[%s]  Type:[%s]  Assigned:[%v] Start:[%v]}", j.Name, j.Index, j.Type, j.Assigned, j.Start)
 }
 
 // Cook up a unique-ish UNIX-domain socket name
